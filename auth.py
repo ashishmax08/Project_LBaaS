@@ -1,1 +1,1 @@
-import requests
+credentials = {'username':'admin','password':'admin'}
