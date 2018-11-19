@@ -3,11 +3,10 @@ from auth import credentials as cred
 from time import sleep
 
 class lb_base(object):
-	def __init__(self,lb_name=None,lb_type=None,lb_ip='10.248.22.185'):
-		self.lb_name = lb_name
-		self.lb_type = lb_type
-		self.lb_ip = lb_ip
-
+	lb_ip = '10.248.22.185'
+	lb_name=None
+	lb_type=None
+	
 	def connect(self):
 		count = 0
 		state = False
