@@ -3,7 +3,7 @@ import json
 from lb_base_class import lb_base
 from auth import credentials as cred
 
-class Server_Resource(lb_base):
+class ServerResource(lb_base):
 	
 	def __init__(self):
 		self.max_real_server_index = 0
@@ -12,7 +12,7 @@ class Server_Resource(lb_base):
 
 	def _ip_check(self,ip):		
 		# check if server ip already exists
-		url = 'https://'+self.lb_ip+'/config/SlbNewCfgEnhRealServerTable'
+		url = 'https://'+lb_base.lb_ip+'/config/SlbNewCfgEnhRealServerTable'
 		response = requests.get(url,auth = (cred['username'],cred['password']), verify = False)
 
 		if response.status_code == 200:
@@ -59,7 +59,7 @@ class Server_Resource(lb_base):
 			# 						}
 
 			index = self.max_real_server_index + 1
-			url = 'https://'+self.lb_ip+'/config/SlbNewCfgEnhRealServerTable/'+str(index)
+			url = 'https://'+lb_base.lb_ip+'/config/SlbNewCfgEnhRealServerTable/'+str(index)
 			
 
 			response = requests.request('POST',url,auth = (cred['username'],cred['password']),
@@ -86,7 +86,7 @@ class Server_Resource(lb_base):
 		index = 0
 
 		# for finding max server group index
-		url = "https://"+self.lb_ip+"/config/SlbNewCfgEnhGroupTable"
+		url = "https://"+lb_base.lb_ip+"/config/SlbNewCfgEnhGroupTable"
 		response = requests.get(url,auth = (cred['username'],cred['password']),verify = False)
 
 		if response.status_code == 200:
@@ -124,7 +124,7 @@ class Server_Resource(lb_base):
 						'content-type': "application/json",
 						'cache-control': "no-cache",
 						}
-		url = "https://"+self.lb_ip+"/config/SlbNewCfgEnhGroupTable/"+str(group_index)
+		url = "https://"+lb_base.lb_ip+"/config/SlbNewCfgEnhGroupTable/"+str(group_index)
 		payload = "{\n \t\"AddServer\":"+str(server_index)+"\n }"
 
 		response = requests.request('PUT',url,auth = (cred['username'],cred['password']),data=payload,headers=headers,verify=False)
