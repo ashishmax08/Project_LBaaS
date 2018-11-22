@@ -3,7 +3,7 @@ from auth import credentials as cred
 from time import sleep
 
 class lb_base(object):
-	lb_ip = '10.248.22.185'
+	lb_ip = '127.0.0.1'
 	lb_name=None
 	lb_type=None
 	
@@ -13,7 +13,10 @@ class lb_base(object):
 
 		while count <3:
 			url = 'https://'+self.lb_ip+'/config/sysName'
-			response = requests.get(url,auth = (cred['username'],cred['password']), verify = False)
+			try:
+				response = requests.get(url,auth = (cred['username'],cred['password']), verify = False)
+			except Exception as e:
+				return {'status':False,'message':str(e)}
 
 			if response.status_code == 200:
 				return {'status':True,'status_code':response.status_code}
